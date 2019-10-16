@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
            }
        });
 
-         if(isConnectedToNet()){
+         if(isConnectedToNet(getApplicationContext())){
 
          }else{
              CFAlertDialog.Builder builder = new CFAlertDialog.Builder(MainActivity.this)
@@ -210,14 +210,11 @@ public class MainActivity extends AppCompatActivity {
         LoadFirstItem();
     }
 
-    public boolean isConnectedToNet() {
-
+    public  boolean isConnectedToNet(Context c) {
         ConnectivityManager connectivityManager =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        return connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
-
-
+                (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     private String GenerateRandomString(String orgName) {
