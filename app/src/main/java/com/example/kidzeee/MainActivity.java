@@ -4,10 +4,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,6 +28,12 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.crowdfire.cfalertdialog.CFAlertDialog;
 
 import java.util.ArrayList;
@@ -82,7 +91,21 @@ public class MainActivity extends AppCompatActivity {
                         findViewById(R.id.tick_card).setVisibility(View.INVISIBLE);
 
                         CurrentItem++;
-                        Glide.with(getApplicationContext()).load(KidzeeList.get(CurrentItem).getImageUri()).into(SingleItemImageView);
+                        RequestOptions requestOptions=new RequestOptions().placeholder(R.drawable.ic_file_download_black_24dp);
+                        Glide.with(getApplicationContext())
+
+                                .load(KidzeeList.get(CurrentItem).getImageUri()).addListener(new RequestListener<Drawable>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                return false;
+                            }
+                        }).apply(requestOptions)
+                                .into(SingleItemImageView);
 
                         singleKidzeeAdapter = new SingleKidzeeAdapter(KidzeeList.get(CurrentItem).getOrgName(),GenerateRandomString(KidzeeList.get(CurrentItem).getOrgName()));
                         singleKidzeeAdapter.notifyDataSetChanged();
@@ -160,7 +183,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
     }
 
     private void LoadFirstItem() {
@@ -187,9 +209,9 @@ public class MainActivity extends AppCompatActivity {
         KidzeeList.add(new KidzeeModel("https://images-na.ssl-images-amazon.com/images/I/81WJyO53YAL._SY550_.jpg","PINEAPPLE"));
         KidzeeList.add(new KidzeeModel("https://previews.123rf.com/images/utima/utima1202/utima120200025/12521354-wet-orange-fruit-with-leaves-isolated-on-white.jpg","ORANGE"));
         KidzeeList.add(new KidzeeModel("https://i5.walmartimages.ca/images/Large/463/3_r/6000191284633_R.jpg","WATERMELON"));
-        KidzeeList.add(new KidzeeModel("https://ae.pricenacdn.com/files/images/products/original/933/Banana-Yellow-India-1kg-Approx-Weight_11074279_032b1d60acc6d81ec479d6a6dd68b825_t.jpg","BANANA"));
-        KidzeeList.add(new KidzeeModel("https://cdn.medusajuice.co.uk/wp-content/uploads/2017/12/peach-e-liquid.png","PEACH"));
-        KidzeeList.add(new KidzeeModel("http://www.zarat.kp.gov.pk/assets/uploads/crops/a2237670547780096024583f333bcefd.jpeg","CARROT"));
+        KidzeeList.add(new KidzeeModel("https://cdn.mos.cms.futurecdn.net/42E9as7NaTaAi4A6JcuFwG-970-80.jpg","BANANA"));
+        KidzeeList.add(new KidzeeModel("https://producemadesimple.ca/wp-content/uploads/2013/08/peaches.jpg","PEACH"));
+        KidzeeList.add(new KidzeeModel("https://greenmylife-wpengine.netdna-ssl.com/wp-content/uploads/2014/02/Carrot.jpg","CARROT"));
         KidzeeList.add(new KidzeeModel("https://balidirectstore.com/app/uploads/2018/04/Fresh-lemons-on-the-rustic-tale-640x360.jpg","LEMON"));
         LoadFirstItem();
     }
@@ -360,6 +382,15 @@ public class MainActivity extends AppCompatActivity {
             MainTextToSpeech.shutdown();
         }
         super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            finishAffinity();
+        }
+        System.exit(0);
     }
 
     private class CorrectAdapter extends RecyclerView.Adapter<CorrectAdapter.CorrectViewholder> {

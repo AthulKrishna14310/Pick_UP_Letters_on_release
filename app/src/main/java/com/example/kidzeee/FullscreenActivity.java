@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.crowdfire.cfalertdialog.CFAlertDialog;
 
@@ -116,6 +117,14 @@ public class FullscreenActivity extends AppCompatActivity {
                 showIntroDialogue();
             }
         });
+
+
+        String uid=getIntent().getStringExtra("UID");
+        if(uid!=null)
+            Toast.makeText(getApplicationContext(),uid,Toast.LENGTH_SHORT).show();
+        else{
+            Toast.makeText(getApplicationContext(),"Opened Separately",Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void showIntroDialogue() {
