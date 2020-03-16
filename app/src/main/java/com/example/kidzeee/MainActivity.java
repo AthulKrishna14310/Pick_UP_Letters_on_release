@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
@@ -181,7 +182,15 @@ public class MainActivity extends AppCompatActivity {
 
          }
 
-
+        findViewById(R.id.homeButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    finishAffinity();
+                }
+                System.exit(0);
+            }
+        });
 
     }
 
@@ -204,15 +213,15 @@ public class MainActivity extends AppCompatActivity {
     private void fruitList() {
         CurrentItem=0;
         KidzeeList.clear();
-        KidzeeList.add(new KidzeeModel("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYP3GJ7QuLRvmuh-agl1sXHtMZ1VQwWKwxADnICJDaeiYPUqv_","MANGO"));
-        KidzeeList.add(new KidzeeModel("https://5.imimg.com/data5/WA/US/MY-18632401/apple-fruit-500x500.jpg","APPLE"));
-        KidzeeList.add(new KidzeeModel("https://images-na.ssl-images-amazon.com/images/I/81WJyO53YAL._SY550_.jpg","PINEAPPLE"));
-        KidzeeList.add(new KidzeeModel("https://previews.123rf.com/images/utima/utima1202/utima120200025/12521354-wet-orange-fruit-with-leaves-isolated-on-white.jpg","ORANGE"));
-        KidzeeList.add(new KidzeeModel("https://i5.walmartimages.ca/images/Large/463/3_r/6000191284633_R.jpg","WATERMELON"));
-        KidzeeList.add(new KidzeeModel("https://cdn.mos.cms.futurecdn.net/42E9as7NaTaAi4A6JcuFwG-970-80.jpg","BANANA"));
-        KidzeeList.add(new KidzeeModel("https://producemadesimple.ca/wp-content/uploads/2013/08/peaches.jpg","PEACH"));
-        KidzeeList.add(new KidzeeModel("https://greenmylife-wpengine.netdna-ssl.com/wp-content/uploads/2014/02/Carrot.jpg","CARROT"));
-        KidzeeList.add(new KidzeeModel("https://balidirectstore.com/app/uploads/2018/04/Fresh-lemons-on-the-rustic-tale-640x360.jpg","LEMON"));
+        KidzeeList.add(new KidzeeModel("android.resource://com.example.kidzeee/drawable/mango_","MANGO"));
+        KidzeeList.add(new KidzeeModel("android.resource://com.example.kidzeee/drawable/apple_","APPLE"));
+        KidzeeList.add(new KidzeeModel("android.resource://com.example.kidzeee/drawable/pineapple_","PINEAPPLE"));
+        KidzeeList.add(new KidzeeModel("android.resource://com.example.kidzeee/drawable/orange_","ORANGE"));
+        KidzeeList.add(new KidzeeModel("android.resource://com.example.kidzeee/drawable/watermelon_","WATERMELON"));
+        KidzeeList.add(new KidzeeModel("android.resource://com.example.kidzeee/drawable/banana_","BANANA"));
+        KidzeeList.add(new KidzeeModel("android.resource://com.example.kidzeee/drawable/peach_","PEACH"));
+        KidzeeList.add(new KidzeeModel("android.resource://com.example.kidzeee/drawable/carrot_","CARROT"));
+        KidzeeList.add(new KidzeeModel("android.resource://com.example.kidzeee/drawable/lemon_","LEMON"));
         LoadFirstItem();
     }
 
@@ -220,15 +229,15 @@ public class MainActivity extends AppCompatActivity {
     private void animalList(){
         KidzeeList.clear();
         CurrentItem=0;
-        KidzeeList.add(new KidzeeModel("https://upload.wikimedia.org/wikipedia/commons/7/73/Lion_waiting_in_Namibia.jpg", "LION"));
-        KidzeeList.add(new KidzeeModel("https://upload.wikimedia.org/wikipedia/commons/8/81/2012_Suedchinesischer_Tiger.JPG","TIGER"));
-        KidzeeList.add(new KidzeeModel("https://upload.wikimedia.org/wikipedia/commons/b/b2/Hausziege_04.jpg","GOAT"));
-        KidzeeList.add(new KidzeeModel("https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Cow_female_black_white.jpg/1200px-Cow_female_black_white.jpg","COW"));
-        KidzeeList.add(new KidzeeModel("https://upload.wikimedia.org/wikipedia/commons/1/11/Cheetah_Kruger.jpg","CHEETAH"));
-        KidzeeList.add(new KidzeeModel("https://upload.wikimedia.org/wikipedia/commons/0/07/Giraffe08_-_melbourne_zoo.jpg","GIRAFFE"));
-        KidzeeList.add(new KidzeeModel("https://upload.wikimedia.org/wikipedia/commons/b/b7/White-tailed_deer.jpg","DEER"));
-        KidzeeList.add(new KidzeeModel("https://upload.wikimedia.org/wikipedia/commons/4/4e/Macaca_nigra_self-portrait_large.jpg","MONKEY"));
-        KidzeeList.add(new KidzeeModel("https://upload.wikimedia.org/wikipedia/commons/e/ed/Water-buffalo.jpg","BUFFALO"));
+        KidzeeList.add(new KidzeeModel(Uri.parse("android.resource://com.example.kidzeee/drawable/lion_").toString(), "LION"));
+        KidzeeList.add(new KidzeeModel("android.resource://com.example.kidzeee/drawable/tiger_","TIGER"));
+        KidzeeList.add(new KidzeeModel("android.resource://com.example.kidzeee/drawable/goat_","GOAT"));
+        KidzeeList.add(new KidzeeModel("android.resource://com.example.kidzeee/drawable/cow_","COW"));
+        KidzeeList.add(new KidzeeModel("android.resource://com.example.kidzeee/drawable/cheetah_","CHEETAH"));
+        KidzeeList.add(new KidzeeModel("android.resource://com.example.kidzeee/drawable/girraffe_","GIRAFFE"));
+        KidzeeList.add(new KidzeeModel("android.resource://com.example.kidzeee/drawable/deer_","DEER"));
+        KidzeeList.add(new KidzeeModel("android.resource://com.example.kidzeee/drawable/monkey_","MONKEY"));
+        KidzeeList.add(new KidzeeModel("android.resource://com.example.kidzeee/drawable/buffallo_","BUFFALO"));
         LoadFirstItem();
     }
 
